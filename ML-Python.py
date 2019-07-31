@@ -1,10 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# # All the python libraries used
-
-# In[1]:
-
+# All the python libraries used
 
 import pandas as pd
 import quandl
@@ -21,39 +15,27 @@ from statistics import mean
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-# ### Quandl
-
-# In[ ]:
-
+# Quandl
 
 df = quandl.get("WIKI/GOOGL")
 print(df.head(3))
 
-
 # In[ ]:
-
 
 df = df[['Adj. Open','Adj. High','Adj. Low','Adj. Close','Adj. Volume']]
 print(df.head(3))
 
-
 # In[ ]:
-
 
 df['HL. PCT'] = (df['Adj. High'] - df['Adj. Close'])/df['Adj. Close']* 100.0
 df['PIC_change'] = (df['Adj. Close'] - df['Adj. Open'])/df['Adj. Open']* 100.0
 df = df[['Adj. Close','HL. PCT','PIC_change','Adj. Volume']] 
 
-
 # In[ ]:
-
 
 print(df.head(3))
 
-
 # In[ ]:
-
 
 forecast_col = 'Adj. Close'
 df.fillna(-99999, inplace = True)
@@ -61,38 +43,31 @@ forecast_out = int(math.ceil(0.01*len(df)))
 df['label'] = df[forecast_col].shift(-forecast_out)
 df.dropna(inplace = True)
 
-
 # In[ ]:
-
 
 print(df.head(3))
 
-
 # In[ ]:
-
 
 X = np.array(df.drop(['label'],1))
 y = np.array(df['label'])
 X = preprocessing.scale(X)
 y = np.array(df['label'])
 
-
-# ### For random split of data
+# For random split of data
 
 # In[ ]:
 
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
-
 clf = LinearRegression()
+
 # to make training faster just LinearRegression(n_jods=10)
+
 clf.fit(X_train, y_train)
 accuracy = clf.score(X_test,y_test)
 print(accuracy)
 
-
 # In[ ]:
-
 
 #another algo for classification but it is not so accurate "support vector regration'
 clf = svm.SVR()
@@ -100,9 +75,7 @@ clf.fit(X_train, y_train)
 accuracy = clf.score(X_test,y_test)
 print(accuracy)
 
-
 # In[ ]:
-
 
 # if we want to save our classifier to avoid procassing time every time we use it
 # we should do it after training with data
@@ -115,24 +88,18 @@ with open('linearRegration.pickle','wb') as f:
 pickle_in = open('linearRegration.pickle','rb')
 clf = pickle.load(pickle_in)
 
-
 # In[ ]:
-
 
 X_lately = X[-forecast_out:]
 X = X[:-forecast_out]
 
 df.dropna(inplace=True)
 
-
 # In[ ]:
-
 
 print(last_date.head(3))
 
-
 # In[ ]:
-
 
 forecast_set = clf.predict(X_lately)
 df['Forecast'] = np.nan
@@ -154,11 +121,9 @@ plt.xlabel('Date')
 plt.ylabel('Price')
 plt.show()
 
-
-# # Plotting a graph
+# Plotting a graph
 
 # In[8]:
-
 
 xs = [1,2,3,4,5,6]
 ys = [5,4,3,2,6,7]
@@ -167,10 +132,3 @@ y1 = plt.plot(xs,ys) # plot for line
 y2 = plt.scatter(xs,ya) #marking a point
 plt.show(y1)
 plt.show(y2)
-
-
-# In[ ]:
-
-
-
-
