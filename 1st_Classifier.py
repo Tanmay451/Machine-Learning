@@ -10,7 +10,6 @@ y = iris.target
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = .5)
 
-#########################CLASSIFIER##############################
 def euc(a,b):
     return distance.euclidean(a,b)
 
@@ -37,8 +36,8 @@ class ScrappyKNN():
                 best_index = i
         return self.y_train[best_index]
         
-##########################CLASSIFIER##############################
-
+        
+        
 my_classifier = ScrappyKNN()
 my_classifier.fit(X_train, y_train)
 
