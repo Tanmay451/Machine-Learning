@@ -1,2 +1,2 @@
 # machine-learning
-by sentdex Youtube Tutorial
+learning ML by sentdex Youtube Tutorial
