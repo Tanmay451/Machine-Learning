@@ -231,19 +231,7 @@ with detection_graph.as_default():
         break
 
 
-# In[2]:
 
-
-from utils import label_map_util
-
-
-# In[1]:
-
-
-import cv2
-
-
-# In[ ]:
 
 
 
